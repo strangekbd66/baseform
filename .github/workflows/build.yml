@@ -1,0 +1,349 @@
+name: ZMK Build + Publish
+
+on:
+  # Build on every commit and PR
+  push:
+    branches: ['**']
+  pull_request:
+  # Manual "publish" run for releases + README update
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g., v2025.08.21)"
+        required: true
+        default: "v0.0.0"
+      title:
+        description: "Release title"
+        required: false
+        default: "Firmware"
+      prerelease:
+        description: "Mark as prerelease?"
+        required: true
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: write   # needed for releases + README commit
+
+jobs:
+  # -1) Run repository tests
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install --upgrade pip pytest pyyaml
+      - name: Run tests
+        run: pytest -q
+
+  # 0) Determine TAG
+  determine-tag:
+    runs-on: ubuntu-latest
+    needs: [tests]
+    outputs:
+      tag: ${{ steps.set-tag.outputs.TAG }}
+      prerelease: ${{ steps.set-tag.outputs.PRERELEASE }}
+      title: ${{ steps.set-tag.outputs.TITLE }}
+    steps:
+      - name: Compute TAG
+        id: set-tag
+        shell: bash
+        env:
+          EV: ${{ github.event_name }}
+          IN_TAG: ${{ inputs.tag }}
+          IN_TITLE: ${{ inputs.title }}
+          IN_PRE: ${{ inputs.prerelease }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$EV" == "workflow_dispatch" ]]; then
+            TAG="${IN_TAG}"                 # manual tag, e.g. v2025.08.21
+            TITLE="${IN_TITLE:-Firmware}"
+            PRE="${IN_PRE:-false}"
+          else
+            SHORT="$(echo "$SHA" | cut -c1-7)"
+            TAG="${SHORT}"                  # ci run => 7-char commit hash
+            TITLE="CI Firmware ${SHORT}"
+            PRE="true"
+          fi
+          echo "TAG=$TAG"        | tee -a "$GITHUB_OUTPUT"
+          echo "TITLE=$TITLE"    | tee -a "$GITHUB_OUTPUT"
+          echo "PRERELEASE=$PRE" | tee -a "$GITHUB_OUTPUT"
+
+  # 1) Build using ZMK's official workflow
+  build:
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    needs: [determine-tag]
+
+  # 2) Package: collect outputs, rename with tag, zip per layout/split
+  package:
+    runs-on: ubuntu-latest
+    needs: [build, determine-tag]
+    strategy:
+      fail-fast: false
+      matrix:
+        layout: [qwerty, colemak, dvorak]
+        split:  [duo, trio]
+
+    steps:
+      - name: Prep
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dl work firmware stage dist
+
+      - name: Download merged firmware artifact(s)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: firmware*
+          path: dl
+          merge-multiple: true
+
+      - name: Extract and collect UF2/BINs
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          mkdir -p work firmware
+          # Unzip anything we got
+          for z in dl/*.zip dl/**/*.zip; do unzip -q "$z" -d work || true; done
+          # Pull + untar nested tarballs
+          mkdir -p work/tars work/out
+          find dl work -type f -name '*.tar.gz' -print -exec mv -f {} work/tars/ \; || true
+          for t in work/tars/*.tar.gz; do tar -xzf "$t" -C work/out || true; done
+          # Collect UF2/BINs
+          mapfile -t outs < <(find dl work -type f \( -name '*.uf2' -o -name '*.bin' \))
+          [[ ${#outs[@]} -gt 0 ]] || { echo "No UF2/BIN found"; exit 1; }
+          for f in "${outs[@]}"; do cp -f "$f" "firmware/$(basename "$f")"; done
+          echo "Collected firmware files:"; ls -lah firmware || true
+
+      - name: Compute artifact base names
+        id: names
+        shell: bash
+        run: |
+          set -euo pipefail
+          L="${{ matrix.layout }}"
+          S="${{ matrix.split }}"
+          echo "reset=_reset" >> "$GITHUB_OUTPUT"
+          echo "right=any_right_peripheral" >> "$GITHUB_OUTPUT"
+          if [[ "$S" == "duo" ]]; then
+            echo "central=${L}_duo_split_left" >> "$GITHUB_OUTPUT"
+            echo "left=" >> "$GITHUB_OUTPUT"
+          else
+            echo "central=${L}_trio_split_central" >> "$GITHUB_OUTPUT"
+            echo "left=${L}_trio_split_left"     >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Resolve extensions (.uf2 preferred; .bin fallback)
+        id: ext
+        shell: bash
+        run: |
+          set -euo pipefail
+          ext () { [[ -f "firmware/$1.uf2" ]] && echo uf2 || { [[ -f "firmware/$1.bin" ]] && echo bin || echo ""; }; }
+          echo "central_ext=$(ext '${{ steps.names.outputs.central }}')" >> "$GITHUB_OUTPUT"
+          echo "right_ext=$(ext   '${{ steps.names.outputs.right }}')"   >> "$GITHUB_OUTPUT"
+          echo "reset_ext=$(ext   '${{ steps.names.outputs.reset }}')"   >> "$GITHUB_OUTPUT"
+          if [[ -n "${{ steps.names.outputs.left }}" ]]; then
+            echo "left_ext=$(ext '${{ steps.names.outputs.left }}')"     >> "$GITHUB_OUTPUT"
+          else
+            echo "left_ext=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify expected files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          miss=0
+          check () { local base="$1" ext="$2"; [[ -n "$ext" && -f "firmware/${base}.${ext}" ]] || { echo "Missing ${base}.${ext:-<none>}"; miss=1; }; }
+          check "${{ steps.names.outputs.central }}" "${{ steps.ext.outputs.central_ext }}"
+          check "${{ steps.names.outputs.right }}"   "${{ steps.ext.outputs.right_ext }}"
+          check "${{ steps.names.outputs.reset }}"   "${{ steps.ext.outputs.reset_ext }}"
+          if [[ -n "${{ steps.names.outputs.left }}" ]]; then
+            check "${{ steps.names.outputs.left }}" "${{ steps.ext.outputs.left_ext }}"
+          fi
+          [[ $miss -eq 0 ]]
+
+      - name: Stage & zip per matrix (flat; hyphenated tag)
+        shell: bash
+        env:
+          TAG: ${{ needs.determine-tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          L="${{ matrix.layout }}"; S="${{ matrix.split }}"
+          C_EXT="${{ steps.ext.outputs.central_ext }}"
+          R_EXT="${{ steps.ext.outputs.right_ext }}"
+          X_EXT="${{ steps.ext.outputs.reset_ext }}"
+          L_EXT="${{ steps.ext.outputs.left_ext }}"
+          rm -rf stage && mkdir -p stage dist
+
+          # Central
+          cp "firmware/${{ steps.names.outputs.central }}.${C_EXT}" \
+             "stage/${{ steps.names.outputs.central }}-${TAG}.${C_EXT}"
+
+          # Trio left (if any)
+          if [[ -n "${{ steps.names.outputs.left }}" ]]; then
+            cp "firmware/${{ steps.names.outputs.left }}.${L_EXT}" \
+               "stage/${{ steps.names.outputs.left }}-${TAG}.${L_EXT}"
+          fi
+
+          # Right peripheral
+          cp "firmware/${{ steps.names.outputs.right }}.${R_EXT}" \
+             "stage/${L}_${S}_split_right-${TAG}.${R_EXT}"
+
+          # Reset
+          cp "firmware/${{ steps.names.outputs.reset }}.${X_EXT}" \
+             "stage/_reset-${TAG}.${X_EXT}"
+
+          echo "Staged files:"
+          ls -lah stage
+
+          OUT="dist/${L}_${S}-${TAG}.zip"
+          zip -q -j "$OUT" stage/*   # -j puts UF2s at root
+          echo "Created $OUT"
+          unzip -l "$OUT"
+
+      - name: Upload CI artifact (clean name)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.layout }}_${{ matrix.split }}   # e.g. qwerty_duo
+          path: dist/*.zip
+
+  # 3) Publish only for manual runs
+  publish:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    needs: [package, determine-tag]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download packaged zips
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*_*'
+          path: dist
+          merge-multiple: true
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.determine-tag.outputs.tag }}
+          TITLE: ${{ needs.determine-tag.outputs.title }}
+          PRERELEASE: ${{ needs.determine-tag.outputs.prerelease }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "${TITLE} ${TAG}" \
+              --notes "Automated firmware build for ${TAG}" \
+              $([[ "$PRERELEASE" == "true" ]] && echo "--prerelease")
+          fi
+          gh release upload "$TAG" dist/*.zip --clobber
+
+      - name: Checkout repo (pushable)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0               # we want full history so we can push cleanly
+          persist-credentials: true    # use GITHUB_TOKEN for push
+          # ref defaults to the workflow ref; for workflow_dispatch it's your default branch
+
+      - name: Update README links (write all 6 direct-download links)
+        env:
+          TAG: ${{ needs.determine-tag.outputs.tag }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f README.md ]]; then
+            echo "ERROR: README.md not found at repo root"; exit 1
+          fi
+
+          START='<!-- FIRMWARE-LINKS:START'
+          END='<!-- FIRMWARE-LINKS:END -->'
+
+          NEWFILE="$(mktemp)"
+          {
+            echo "$START - Do not edit below, this section is managed by CI -->"
+            echo "#### Firmware $TAG"
+            make_group () {
+              local layout="$1"
+              local title="$2"
+              echo "- ${title}"
+              echo "  - [Duo](https://github.com/${REPO}/releases/download/${TAG}/${layout}_duo-${TAG}.zip)"
+              echo "  - [Trio](https://github.com/${REPO}/releases/download/${TAG}/${layout}_trio-${TAG}.zip)"
+            }
+            make_group qwerty  "QWERTY"
+            make_group colemak "Colemak"
+            make_group dvorak  "Dvorak"
+            echo
+            echo "$END"
+          } > "$NEWFILE"
+
+          # Replace if markers exist, else insert after first H1 or at top
+          if grep -q "$START" README.md && grep -q "$END" README.md; then
+            awk -v blockfile="$NEWFILE" '
+              BEGIN {
+                while ((getline line < blockfile) > 0) block = block line "\n"
+                close(blockfile)
+              }
+              {
+                if ($0 ~ /<!-- FIRMWARE-LINKS:START/) { print block; inblock=1; next }
+                if ($0 ~ /<!-- FIRMWARE-LINKS:END -->/) { inblock=0; next }
+                if (!inblock) print
+              }
+            ' README.md > README.tmp
+          else
+            if grep -n '^# ' README.md >/dev/null; then
+              line=$(grep -n '^# ' README.md | head -1 | cut -d: -f1)
+              head -n "$line" README.md > README.tmp
+              echo >> README.tmp
+              cat "$NEWFILE" >> README.tmp
+              tail -n +"$((line+1))" README.md >> README.tmp
+            else
+              cat "$NEWFILE" README.md > README.tmp
+            fi
+          fi
+
+          mv README.tmp README.md
+
+          echo "----- README diff (first 120 lines) -----"
+          git --no-pager diff -- README.md | head -120 || true
+          echo "----------------------------------------"
+
+      - name: Commit & push README update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.determine-tag.outputs.tag }}   # <-- ensure TAG is set here
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Determine branch we should push to
+          BRANCH="${GITHUB_REF_NAME:-}"
+          if [[ -z "$BRANCH" ]]; then
+            BRANCH="$(git remote show origin | awk '/HEAD branch/ {print $NF}')"
+          fi
+          BRANCH="${BRANCH:-main}"
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No README changes to commit."
+            exit 0
+          fi
+
+          # Rebase on remote branch to avoid non-fast-forward issues
+          git fetch origin "$BRANCH"
+          git checkout -B "$BRANCH" "origin/$BRANCH" || git checkout -B "$BRANCH"
+
+          git commit -m "docs: update firmware download links for ${TAG}"
+          git push origin "$BRANCH"
+

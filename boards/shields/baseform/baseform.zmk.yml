@@ -1,0 +1,14 @@
+file_format: "1"
+id: baseform 
+name: baseform
+type: shield
+url: https://github.com/hmngwy/baseform
+requires: [nice_nano_v2]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - studio
+siblings:
+  - baseform_left
+  - baseform_right
