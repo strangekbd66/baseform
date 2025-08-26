@@ -76,19 +76,19 @@
         };
     };
 
-    rgb_encoder: rgb_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
-    };
+    //rgb_encoder: rgb_encoder {
+      //  compatible = "zmk,behavior-sensor-rotate";
+        // #sensor-binding-cells = <0>;
+        // bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
+    // };
 
-    scroll_encoder: scroll_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+    // scroll_encoder: scroll_encoder {
+       //  compatible = "zmk,behavior-sensor-rotate";
+        // #sensor-binding-cells = <0>;
+        // bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
 
-        tap-ms = <100>;
-    };
+     //   tap-ms = <100>;
+    // };
 
     combos {
         compatible = "zmk,combos";
@@ -316,7 +316,7 @@
                                     &mt LEFT_ALT ENTER  &lt 2 BACKSPACE  &lt 1 SPACE            &mt RIGHT_SHIFT SPACE  &lt 3 BACKSPACE  &kp ENTER
             >;
 
-            sensor-bindings = <&scroll_encoder>;
+            
         };
 
         NAV {
@@ -327,7 +327,7 @@
                                       &trans           &trans          &trans                  &trans        &trans          &trans
             >;
 
-            sensor-bindings = <&rgb_encoder>;
+            
             label = "nav_layer";
         };
 
@@ -340,7 +340,7 @@
                                                     &mo 4   &lt 1 DELETE  &mt LEFT_SHIFT ENTER            &mt RIGHT_SHIFT SPACE  &lt 1 BACKSPACE  &kp RIGHT_ALT
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+            
             label = "num_left";
         };
 
