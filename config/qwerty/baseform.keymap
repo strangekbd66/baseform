@@ -5,11 +5,10 @@
 #include <dt-bindings/zmk/outputs.h>
 
 #define QWE 0
-#define COL 1
-#define SYM 2
-#define NAV 3
-#define FUN 4
-#define MET 5
+#define SYM 1
+#define NAV 2
+#define FUN 3
+#define MET 4
 
 &lt {
   tapping-term-ms = <150>;
@@ -48,16 +47,6 @@
       >;
     };
 
-    colemak_layer {
-      display-name = "colemak";
-      bindings = <
-        &trans      &trans         &trans       &trans         &trans           &trans               &trans         &trans          &trans        &trans       &trans          &trans         
-        &trans      &hm RALT Q     &kp W        &kp F          &kp P            &kp B                &kp J          &kp L           &kp U         &kp Y        &hm RALT APOS   &trans         
-        &trans      &kp A          &kp R        &kp S          &kp T            &kp G                &kp M          &kp N           &kp E         &kp I        &kp O           &trans    
-        &trans      &hm RCTRL Z    &kp X        &kp C          &kp D            &kp V                &kp K          &kp H           &kp COMMA     &kp DOT      &hm RCTRL RET   &trans
-                                                &trans         &trans           &trans               &trans         &trans          &trans     
-      >;
-    };
 
     symbols {
       display-name = "symbols";
@@ -99,7 +88,7 @@
         &trans         &soft_off      &out OUT_USB &out OUT_BLE   &none            &bt BT_CLR           &ext_power EP_TOG &trans         &trans        &none        &soft_off     &trans         
         &trans         &bt BT_SEL 0   &bt BT_SEL 1 &bt BT_SEL 2   &bt BT_SEL 3     &bt BT_SEL 4         &none             &none          &none         &none        &none         &trans     
         &trans         &studio_unlock &none        &bootloader    &sys_reset       &none                &none             &sys_reset     &bootloader   &none        &none         &trans
-                                                   &none           &tog 1           &tog 0               &trans            &trans         &none
+                                                   &none           &trans           &tog 0               &trans            &trans         &none
 
       >;
     };
@@ -113,6 +102,14 @@
     };
 
     extra3 {
+        status = "reserved";
+    };
+
+    extra4 {
+        status = "reserved";
+    };
+
+    extra5 {
         status = "reserved";
     };
 
