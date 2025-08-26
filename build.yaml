@@ -71,3 +71,22 @@ include:
   - board: nice_nano_v2
     shield: baseform_trio_left_peripheral
     artifact-name: dvorak_trio_split_left
+
+  # ============================================================
+  # TEST
+  # ============================================================
+  - board: nice_nano_v2
+    shield: baseform_duo_left_central
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DZMK_CONFIG=/tmp/zmk-config/config/test
+    artifact-name: test_duo_split_left
+
+  - board: nice_nano_v2
+    shield: "baseform_trio_base_central dongle_display"
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DZMK_CONFIG=/tmp/zmk-config/config/test
+    artifact-name: test_trio_split_central
+
+  - board: nice_nano_v2
+    shield: baseform_trio_left_peripheral
+    artifact-name: test_trio_split_left
