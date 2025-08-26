@@ -1,0 +1,43 @@
+name: Sync baseform keymap
+
+# Allow the workflow to push commits
+permissions:
+  contents: write
+
+on:
+  push:
+    paths:
+      - 'config/baseform.keymap'
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Copy config/baseform.keymap to config/qwerty/baseform.keymap
+        run: |
+          set -euo pipefail
+          mkdir -p config/qwerty
+          cp config/baseform.keymap config/qwerty/baseform.keymap
+
+      - name: Commit and push if changed
+        env:
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          if git diff --quiet --exit-code -- config/qwerty/baseform.keymap; then
+            echo "No changes to sync."
+            exit 0
+          fi
+          git config user.name "$GIT_COMMITTER_NAME"
+          git config user.email "$GIT_COMMITTER_EMAIL"
+          git add config/qwerty/baseform.keymap
+          git commit -m "ci: sync config/qwerty/baseform.keymap from config/baseform.keymap"
+          git push
