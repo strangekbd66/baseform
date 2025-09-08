@@ -9,7 +9,7 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
-#include <dt-bindings/zmk/ext_power.h>
+
 // #include <interfaces/hid-trackball.dtsi>
 
 &lt {
@@ -193,16 +193,40 @@
             require-prior-idle-ms = <75>;
         };
 
-        delete {
-            bindings = <&kp DELETE>;
-            key-positions = <39 11>;
-            require-prior-idle-ms = <75>;
-        };
-
         lock {
             bindings = <&kp LG(L)>;
             key-positions = <23 11>;
             require-prior-idle-ms = <75>;
+        };
+
+        delete {
+            bindings = <&kp DELETE>;
+            key-positions = <11 10>;
+        };
+
+        lbracket {
+            bindings = <&kp LEFT_BRACKET>;
+            key-positions = <20 21>;
+        };
+
+        rbracket {
+            bindings = <&kp RIGHT_BRACKET>;
+            key-positions = <21 22>;
+        };
+
+        Copy {
+            bindings = <&kp LC(C)>;
+            key-positions = <26 27>;
+        };
+
+        paste {
+            bindings = <&kp LC(V)>;
+            key-positions = <27 28>;
+        };
+
+        undo {
+            bindings = <&kp LC(Z)>;
+            key-positions = <25 26>;
         };
     };
 
