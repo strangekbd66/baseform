@@ -8,7 +8,6 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
-#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/rgb.h>
 
 // #include <interfaces/hid-trackball.dtsi>
@@ -77,6 +76,19 @@
             bindings = <&kp LEFT_GUI>, <&kp LG(C)>;
 
             label = "gui-copilot";
+        };
+
+        hml: htt {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HML";
+            #binding-cells = <2>;
+            tapping-term-ms = <170>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <200>;
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 35 34 33 32 31 30>;
         };
     };
 
