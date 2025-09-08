@@ -18,6 +18,8 @@
     quick-tap-ms = <170>;
 };
 
+&soft_off { hold-time-ms = <2000>; };
+
 &mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
 
 &msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
