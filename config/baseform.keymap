@@ -267,6 +267,7 @@
 
         new_macro1: new_macro1 {
             compatible = "zmk,behavior-macro";
+            wait-ms = <50>;
             #binding-cells = <0>;
             bindings = <&none &kp T &kp H &kp E &kp SPACE &kp Q &kp U &kp I &kp C &kp K &kp SPACE &kp B &kp R &kp O &kp W &kp N &kp SPACE &kp F &kp O &kp X &kp SPACE &kp J &kp U &kp M &kp P &kp S &kp SPACE &kp O &kp V &kp E &kp R &kp SPACE &kp T &kp H &kp E &kp SPACE &kp L &kp A &kp Z &kp Y &kp SPACE &kp D &kp O &kp G &kp DOT>;
             label = "NEW_MACRO1";
