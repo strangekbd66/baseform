@@ -264,6 +264,13 @@
             bindings = <&none &kp LS(F) &kp O &kp R &kp SPACE &kp A &kp L &kp L &kp O &kp C &kp A &kp T &kp I &kp O &kp N &kp SPACE &kp O &kp F &kp SPACE &kp N &kp E &kp E &kp D &kp E &kp D &kp SPACE &kp M &kp A &kp T &kp E &kp R &kp I &kp A &kp L &kp S &kp SPACE &kp B &kp E &kp L &kp O &kp W &kp COMMA &kp SPACE &kp P &kp L &kp E &kp A &kp S &kp E &kp DOT>;
             label = "Matsallocation";
         };
+
+        new_macro1: new_macro1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp T &kp H &kp E &kp SPACE &kp Q &kp U &kp I &kp C &kp K &kp SPACE &kp B &kp R &kp O &kp W &kp N &kp SPACE &kp F &kp O &kp X &kp SPACE &kp J &kp U &kp M &kp P &kp S &kp SPACE &kp O &kp V &kp E &kp R &kp SPACE &kp T &kp H &kp E &kp SPACE &kp L &kp A &kp Z &kp Y &kp SPACE &kp D &kp O &kp G &kp DOT>;
+            label = "NEW_MACRO1";
+        };
     };
 
     keymap {
@@ -319,10 +326,10 @@
 
         Macros {
             bindings = <
-&trans  &trans  &trans  &new_macro15  &new_macro  &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans        &trans      &trans            &trans  &trans  &trans
+&new_macro1  &trans  &trans  &new_macro15  &new_macro  &trans            &trans  &trans  &trans  &trans  &trans  &trans
+&trans       &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
+&trans       &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
+                             &trans        &trans      &trans            &trans  &trans  &trans
             >;
         };
     };
