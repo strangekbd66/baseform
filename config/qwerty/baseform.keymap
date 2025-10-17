@@ -254,7 +254,7 @@
         new_macro1: new_macro1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&none &kp LS(A) &kp C &kp K &kp N &kp O &kp W &kp L &kp E &kp D &kp G &kp E &kp D &kp SPACE &kp O &kp N &kp SPACE &kp T &kp H &kp I &kp S &kp DOT &kp SPACE &kp LS(W) &kp E &kp SPACE &kp W &kp I &kp L &kp L &kp SPACE &kp L &kp I &kp N &kp E &kp SPACE &kp U &kp P &kp SPACE &kp D &kp I &kp S &kp P &kp A &kp T &kp C &kp H &kp SPACE &kp O &kp N &kp C &kp E &kp SPACE &kp W &kp I &kp T &kp H &kp SPACE &kp A &kp V &kp A &kp I &kp L &kp A &kp B &kp L &kp E &kp SPACE &kp LS(F) &kp LS(R) &kp DOT>;
+            text = "Acknowledged on this. We will line up dispatch once with available FR.";
             label = "FRlineup";
         };
 
