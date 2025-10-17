@@ -328,10 +328,10 @@
 
         Macros {
             bindings = <
-&new_macro1  &trans  &trans  &new_macro15  &new_macro  &ext_power EP_TOG            &trans  &trans  &trans  &trans  &trans  &trans
-&trans       &trans  &trans  &trans        &trans      &trans                       &trans  &trans  &trans  &trans  &trans  &trans
-&trans       &trans  &trans  &trans        &trans      &trans                       &trans  &trans  &trans  &trans  &trans  &trans
-                             &trans        &trans      &trans                       &trans  &trans  &trans
+&new_macro1  &trans  &trans  &new_macro15  &new_macro  &ext_power EP_ON            &trans  &trans  &trans  &trans  &trans  &trans
+&trans       &trans  &trans  &trans        &trans      &trans                      &trans  &trans  &trans  &trans  &trans  &trans
+&trans       &trans  &trans  &trans        &trans      &trans                      &trans  &trans  &trans  &trans  &trans  &trans
+                             &trans        &trans      &trans                      &trans  &trans  &trans
             >;
         };
     };
