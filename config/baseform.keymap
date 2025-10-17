@@ -5,6 +5,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
@@ -327,10 +328,10 @@
 
         Macros {
             bindings = <
-&new_macro1  &trans  &trans  &new_macro15  &new_macro  &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans       &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans       &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-                             &trans        &trans      &trans            &trans  &trans  &trans
+&new_macro1  &trans  &trans  &new_macro15  &new_macro  &ext_power EP_TOG            &trans  &trans  &trans  &trans  &trans  &trans
+&trans       &trans  &trans  &trans        &trans      &trans                       &trans  &trans  &trans  &trans  &trans  &trans
+&trans       &trans  &trans  &trans        &trans      &trans                       &trans  &trans  &trans  &trans  &trans  &trans
+                             &trans        &trans      &trans                       &trans  &trans  &trans
             >;
         };
     };
