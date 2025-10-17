@@ -319,10 +319,10 @@
 
         Macros {
             bindings = <
-&new_macro6  &new_macro2  &new_macro3   &new_macro15  &new_macro    &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&new_macro7  &new_macro1  &new_macro8   &new_macro12  &trans        &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&new_macro5  &new_macro9  &new_macro10  &new_macro4   &new_macro11  &trans            &trans  &trans  &trans  &trans  &trans  &trans
-                                        &trans        &trans        &trans            &trans  &trans  &trans
+&trans  &trans  &trans  &new_macro15  &new_macro  &trans            &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans        &trans      &trans            &trans  &trans  &trans
             >;
         };
     };
