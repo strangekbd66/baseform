@@ -123,13 +123,13 @@
         ctrltab {
             bindings = <&kp LC(TAB)>;
             require-prior-idle-ms = <75>;
-            key-positions = <2 3 1>;
+            key-positions = <2 1>;
         };
 
         ctrshtab {
             bindings = <&kp LC(LS(TAB))>;
             require-prior-idle-ms = <75>;
-            key-positions = <1 2>;
+            key-positions = <1 2 3>;
         };
 
         left_monitor {
@@ -238,14 +238,14 @@
             key-positions = <38 27>;
         };
 
-        gui {
-            bindings = <&kp RIGHT_GUI>;
-            key-positions = <37 38>;
-        };
-
         softoff {
             bindings = <&soft_off>;
             key-positions = <0 11>;
+        };
+
+        gui {
+            bindings = <&kp RGUI>;
+            key-positions = <37 38>;
         };
     };
 
