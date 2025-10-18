@@ -7,7 +7,6 @@ include:
     artifact-name: _reset
 
 # for usb logging
-include:
   - board: nice_nano_v2
     shield: baseform_trio_base_central
     snippet: zmk-usb-logging
