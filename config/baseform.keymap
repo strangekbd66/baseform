@@ -240,7 +240,12 @@
 
         gui {
             bindings = <&kp RIGHT_GUI>;
-            key-positions = <36 37>;
+            key-positions = <37 38>;
+        };
+
+        softoff {
+            bindings = <&soft_off>;
+            key-positions = <0 11>;
         };
     };
 
@@ -281,10 +286,10 @@
         Base {
             display-name = "base_layer";
             bindings = <
-&kp ESCAPE            &kp Q  &kp W  &kp E               &kp R            &kp T                  &kp Y                  &kp U                 &kp I             &kp O             &kp P     &kp BACKSPACE
-&mt LSHFT CAPS        &kp A  &kp S  &kp D               &lt 2 F          &kp G                  &kp H                  &hml RIGHT_CONTROL J  &hml RIGHT_GUI K  &hml RIGHT_ALT L  &kp SEMI  &kp SQT
-&mt LEFT_CONTROL TAB  &kp Z  &kp X  &kp C               &kp V            &kp B                  &kp N                  &kp M                 &kp COMMA         &kp DOT           &kp FSLH  &kp RIGHT_SHIFT
-                                    &mt LEFT_ALT ENTER  &lt 2 BACKSPACE  &lt 1 SPACE            &mt RIGHT_SHIFT SPACE  &lt 3 BACKSPACE       &kp ENTER
+&kp ESCAPE            &kp Q  &kp W  &kp E                   &kp R        &kp T                  &kp Y                  &kp U                 &kp I             &kp O             &kp P     &kp BACKSPACE
+&mt LSHFT CAPS        &kp A  &kp S  &kp D                   &lt 2 F      &kp G                  &kp H                  &hml RIGHT_CONTROL J  &hml RIGHT_GUI K  &hml RIGHT_ALT L  &kp SEMI  &kp SQT
+&mt LEFT_CONTROL TAB  &kp Z  &kp X  &kp C                   &kp V        &kp B                  &kp N                  &kp M                 &kp COMMA         &kp DOT           &kp FSLH  &kp RIGHT_SHIFT
+                                    &mt LEFT_ALT BACKSPACE  &lt 2 ENTER  &lt 1 SPACE            &mt RIGHT_SHIFT SPACE  &lt 3 BACKSPACE       &kp ENTER
             >;
 
             sensor-bindings = <&scroll_encoder>;
@@ -306,7 +311,7 @@
             display-name = "num_left_layer";
             bindings = <
 &kp COLON                     &kp ASTERISK  &kp N7  &kp N8  &kp N9        &kp PLUS                        &bt BT_CLR_ALL         &bt BT_NXT       &rgb_ug RGB_TOG  &rgb_ug RGB_EFR  &rgb_ug RGB_EFF                 &out OUT_TOG
-&kp ESCAPE                    &kp SLASH     &kp N4  &kp N5  &kp N6        &kp MINUS                       &rgb_ug RGB_BRI        &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_COLOR_HSB(0,88,50)  &kp SQT
+&kp DOT                       &kp SLASH     &kp N4  &kp N5  &kp N6        &kp MINUS                       &rgb_ug RGB_BRI        &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_COLOR_HSB(0,88,50)  &kp SQT
 &mt LA(LC(LEFT_SHIFT)) GRAVE  &kp NUMBER_0  &kp N1  &kp N2  &kp N3        &kp EQUAL                       &rgb_ug RGB_BRD        &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &kp FSLH                        &mt RIGHT_GUI BACKSLASH
                                                     &mo 4   &lt 1 DELETE  &mt LEFT_SHIFT ENTER            &mt RIGHT_SHIFT SPACE  &lt 1 BACKSPACE  &kp RIGHT_ALT
             >;
