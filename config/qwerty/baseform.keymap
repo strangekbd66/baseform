@@ -311,10 +311,10 @@
         NUM_L {
             display-name = "num_left_layer";
             bindings = <
-&kp COLON                     &kp ASTERISK  &kp N7  &kp N8  &kp N9        &kp PLUS                        &bt BT_CLR_ALL         &bt BT_NXT       &rgb_ug RGB_TOG  &rgb_ug RGB_EFR  &rgb_ug RGB_EFF                 &out OUT_TOG
-&kp DOT                       &kp SLASH     &kp N4  &kp N5  &kp N6        &kp MINUS                       &rgb_ug RGB_BRI        &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_COLOR_HSB(0,88,50)  &kp SQT
-&mt LA(LC(LEFT_SHIFT)) GRAVE  &kp NUMBER_0  &kp N1  &kp N2  &kp N3        &kp EQUAL                       &rgb_ug RGB_BRD        &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &kp FSLH                        &mt RIGHT_GUI BACKSLASH
-                                                    &mo 4   &lt 1 DELETE  &mt LEFT_SHIFT ENTER            &mt RIGHT_SHIFT SPACE  &lt 1 BACKSPACE  &kp RIGHT_ALT
+&kp COLON     &kp ASTERISK  &kp N7  &kp N8  &kp N9        &kp PLUS                        &bt BT_CLR_ALL         &bt BT_NXT       &rgb_ug RGB_TOG  &rgb_ug RGB_EFR  &rgb_ug RGB_EFF                 &out OUT_TOG
+&kp DOT       &kp SLASH     &kp N4  &kp N5  &kp N6        &kp MINUS                       &rgb_ug RGB_BRI        &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_COLOR_HSB(0,88,50)  &kp SQT
+&out OUT_BLE  &kp NUMBER_0  &kp N1  &kp N2  &kp N3        &kp EQUAL                       &rgb_ug RGB_BRD        &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &kp FSLH                        &mt RIGHT_GUI BACKSLASH
+                                    &mo 4   &lt 1 DELETE  &mt LEFT_SHIFT ENTER            &mt RIGHT_SHIFT SPACE  &lt 1 BACKSPACE  &kp RIGHT_ALT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
