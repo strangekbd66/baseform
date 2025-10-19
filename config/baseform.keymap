@@ -385,8 +385,8 @@
             bindings = <
 &new_macro5  &new_macro1  &trans       &new_macro15  &new_macro   &ext_power EP_ON             &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans
 &new_macro6  &trans       &new_macro4  &new_macro3   &trans       &ext_power EP_OFF            &trans        &trans        &trans        &trans        &trans        &trans
-&new_macro7  &trans       &trans       &trans        &new_macro8  &out OUT_TOG                 &out OUT_TOG  &trans        &trans        &trans        &trans        &bt BT_CLR_ALL
-                                       &trans        &trans       &trans                       &trans        &trans        &trans
+&new_macro7  &trans       &trans       &trans        &new_macro8  &out OUT_TOG                 &out OUT_TOG  &out OUT_BLE  &trans        &trans        &trans        &bt BT_CLR_ALL
+                                       &trans        &trans       &out OUT_BLE                 &trans        &trans        &trans
             >;
         };
     };
