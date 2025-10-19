@@ -206,11 +206,13 @@
         lbracket {
             bindings = <&kp LEFT_BRACKET>;
             key-positions = <20 21>;
+            layers = <0>;
         };
 
         rbracket {
             bindings = <&kp RIGHT_BRACKET>;
             key-positions = <21 22>;
+            layers = <0>;
         };
 
         Copy {
@@ -235,7 +237,7 @@
 
         winv {
             bindings = <&kp LG(V)>;
-            key-positions = <38 27>;
+            key-positions = <38 28>;
         };
 
         softoff {
