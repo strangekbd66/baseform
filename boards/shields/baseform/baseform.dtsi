@@ -9,9 +9,6 @@
 
 / {
 
-zephyr_udc0: &usbd {
-    status = "okay";
-};
 
     chosen {
         zephyr,display = &oled;
