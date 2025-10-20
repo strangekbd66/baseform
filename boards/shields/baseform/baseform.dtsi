@@ -9,6 +9,10 @@
 
 / {
 
+zephyr_udc0: &usbd {
+    status = "okay";
+};
+
     chosen {
         zephyr,display = &oled;
 	zmk,physical-layout = &baseform_6x3_lo;
