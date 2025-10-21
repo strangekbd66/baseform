@@ -19,7 +19,7 @@
     baseform_6x4_lo: baseform_6x4_lo {
 	compatible = "zmk,physical-layout";
 	display-name = "BF3 54-key Layout";
-	wakeup-source;
+	
 	transform = <&baseform_6x4_tf>;
 	kscan = <&kscan0>;
 	
@@ -151,7 +151,7 @@
     baseform_5x3_lo: baseform_5x3_lo {
 	compatible = "zmk,physical-layout";
 	display-name = "BF1 36-key Layout";
-	wakeup-source;
+
 	transform = <&baseform_5x3_tf>;
 	kscan = <&kscan0>;
 	
