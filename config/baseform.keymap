@@ -350,7 +350,7 @@
         compatible = "zmk,keymap";
 
         Base {
-            display-name = "base_layer";
+            display-name = " QWE";
             bindings = <
 &kp ESCAPE           &kp Q  &kp W  &kp E                   &kp R        &kp T                  &kp Y                  &kp U                 &kp I             &kp O             &kp P     &kp BACKSPACE
 &mt LCTRL TAB        &kp A  &kp S  &kp D                   &lt 2 F      &kp G                  &kp H                  &hml RIGHT_CONTROL J  &hml RIGHT_GUI K  &hml RIGHT_ALT L  &kp SEMI  &kp SQT
@@ -370,11 +370,11 @@
             >;
 
             sensor-bindings = <&rgb_encoder>;
-            label = "nav_layer";
+            label = "NAV";
         };
 
         NUM_L {
-            display-name = "num_left_layer";
+            display-name = "NUM-L";
             bindings = <
 &kp COLON  &kp ASTERISK  &kp N7  &kp N8  &kp N9        &kp PLUS               &kp C_MUTE             &kp C_PREVIOUS         &kp C_PLAY_PAUSE  &kp C_NEXT            &trans  &trans
 &kp DOT    &kp SLASH     &kp N4  &kp N5  &kp N6        &kp MINUS              &trans                 &kp RA(C_VOLUME_DOWN)  &trans            &kp RA(C_VOLUME_UP)   &trans  &trans
@@ -394,7 +394,7 @@
                                          &trans    &trans      &trans                 &trans     &trans         &trans
             >;
 
-            label = "NSF_layer";
+            label = "NSF";
         };
 
         Macros {
@@ -404,6 +404,8 @@
 &new_macro7  &trans       &trans       &new_macro10  &new_macro8  &out OUT_TOG                 &out OUT_TOG  &out OUT_BLE  &trans        &trans        &trans        &bt BT_CLR_ALL
                                        &trans        &trans       &out OUT_BLE                 &trans        &trans        &trans
             >;
+
+            label = "MACROS";
         };
     };
 };
