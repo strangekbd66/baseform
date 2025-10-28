@@ -91,6 +91,13 @@
             require-prior-idle-ms = <200>;
             hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 35 34 33 32 31 30>;
         };
+
+        capsword: capsword {
+            compatible = "zmk,behavior-caps-word";
+            label = "CAPSWORD";
+            #binding-cells = <0>;
+            continue-list = <UNDERSCORE BACKSPACE DELETE>;
+        };
     };
 
     rgb_encoder: rgb_encoder {
