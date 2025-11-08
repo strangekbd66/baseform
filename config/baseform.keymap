@@ -258,6 +258,11 @@
             bindings = <&kp RGUI>;
             key-positions = <37 38>;
         };
+
+        capsword {
+            bindings = <&caps_word>;
+            key-positions = <38 39>;
+        };
     };
 
     macros {
