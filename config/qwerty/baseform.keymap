@@ -375,10 +375,10 @@
 
         NAV {
             bindings = <
-&trans  &new_macro14  &kp HOME  &kp UP_ARROW    &kp END          &kp P             &trans          &mkp LCLK           &mmv MOVE_UP    &mkp RCLK            &msc SCRL_UP     &trans
-&trans  &trans        &kp LEFT  &kp DOWN        &kp RIGHT        &kp O             &trans          &mmv MOVE_LEFT      &mmv MOVE_DOWN  &mmv MOVE_RIGHT      &msc SCRL_DOWN   &trans
-&trans  &trans        &trans    &msc SCRL_LEFT  &msc SCRL_RIGHT  &trans            &msc SCRL_LEFT  &kp LA(LEFT_ARROW)  &trans          &kp LA(RIGHT_ARROW)  &msc SCRL_RIGHT  &trans
-                                &trans          &trans           &trans            &mkp LCLK       &mkp RCLK           &trans
+&trans  &new_macro14  &kp HOME            &kp UP_ARROW    &kp END          &kp P                          &trans          &mkp LCLK           &mmv MOVE_UP    &mkp RCLK            &msc SCRL_UP     &trans
+&trans  &trans        &kp LEFT            &kp DOWN        &kp RIGHT        &kp O                          &trans          &mmv MOVE_LEFT      &mmv MOVE_DOWN  &mmv MOVE_RIGHT      &msc SCRL_DOWN   &trans
+&trans  &trans        &kp LA(LEFT_ARROW)  &msc SCRL_LEFT  &msc SCRL_RIGHT  &kp LA(RIGHT_ARROW)            &msc SCRL_LEFT  &kp LA(LEFT_ARROW)  &trans          &kp LA(RIGHT_ARROW)  &msc SCRL_RIGHT  &trans
+                                          &trans          &trans           &trans                         &mkp LCLK       &mkp RCLK           &trans
             >;
 
             sensor-bindings = <&rgb_encoder>;
