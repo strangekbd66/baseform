@@ -18,7 +18,7 @@
 &lt {
     tapping-term-ms = <150>;
     quick_tap_ms = <150>;
-    quick-tap-ms = <170>;
+    quick-tap-ms = <100>;
 };
 
 &mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
