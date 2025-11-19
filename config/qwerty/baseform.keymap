@@ -278,6 +278,11 @@
             bindings = <&kp DELETE>;
             key-positions = <0 38>;
         };
+
+        backwardslash {
+            bindings = <&kp BACKSLASH>;
+            key-positions = <34 35>;
+        };
     };
 
     macros {
