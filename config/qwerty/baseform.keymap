@@ -280,6 +280,11 @@
             key-positions = <18 20>;
             layers = <1>;
         };
+
+        alt+f1 {
+            bindings = <&kp LA(F1)>;
+            key-positions = <29 38>;
+        };
     };
 
     macros {
