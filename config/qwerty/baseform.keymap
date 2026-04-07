@@ -281,7 +281,7 @@
             layers = <1>;
         };
 
-        alt+f1 {
+        ALTF1 {
             bindings = <&kp LA(F1)>;
             key-positions = <29 38>;
         };
