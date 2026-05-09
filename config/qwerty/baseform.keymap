@@ -290,6 +290,18 @@
             bindings = <&switch_apps>;
             key-positions = <18 0>;
         };
+
+        maccopy {
+            bindings = <&kp LG(C)>;
+            key-positions = <26 27>;
+            layers = <1>;
+        };
+
+        macpaste {
+            bindings = <&kp LG(V)>;
+            key-positions = <27 28>;
+            layers = <1>;
+        };
     };
 
     macros {
