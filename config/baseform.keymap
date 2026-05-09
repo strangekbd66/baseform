@@ -260,30 +260,35 @@
         addborder {
             bindings = <&kp LC(LS(AMPERSAND))>;
             key-positions = <7 8>;
-            layers = <1>;
+            layers = <2>;
         };
 
         deleteborder {
             bindings = <&kp LC(LS(UNDERSCORE))>;
             key-positions = <20 19>;
-            layers = <1>;
+            layers = <2>;
         };
 
         insertcell {
             bindings = <&kp LC(PLUS)>;
             key-positions = <6 8>;
-            layers = <1>;
+            layers = <2>;
         };
 
         deletecell {
             bindings = <&kp LC(MINUS)>;
             key-positions = <18 20>;
-            layers = <1>;
+            layers = <2>;
         };
 
         togglemacwin {
-            bindings = <&tog 5>;
+            bindings = <&mo 1>;
             key-positions = <30 35>;
+        };
+
+        switchapps {
+            bindings = <&switch_apps>;
+            key-positions = <18 0>;
         };
     };
 
@@ -378,6 +383,13 @@
             bindings = <&none &kp LS(S) &kp H &kp A &kp R &kp I &kp N &kp G &kp SPACE &kp R &kp E &kp M &kp A &kp R &kp K &kp S &kp SPACE &kp F &kp R &kp O &kp M &kp SPACE &kp LS(F) &kp LS(R) &kp SPACE &kp B &kp E &kp L &kp O &kp W &kp DOT &kp RET &kp RET &kp LS(A) &kp C &kp T &kp I &kp O &kp N &kp SPACE &kp T &kp A &kp K &kp E &kp N &kp COLON &kp RET &kp RET &kp LS(M) &kp A &kp T &kp E &kp R &kp I &kp A &kp L &kp S &kp SPACE &kp U &kp S &kp E &kp D &kp COLON &kp RET &kp RET &kp LS(F) &kp A &kp C &kp I &kp L &kp I &kp T &kp Y &kp SPACE &kp U &kp S &kp E &kp D &kp COLON &kp RET &kp RET &kp LS(A) &kp S &kp S &kp I &kp G &kp N &kp E &kp D &kp SPACE &kp LS(F) &kp LS(R) &kp COLON &kp RET &kp RET &kp RET>;
             label = "NEW_MACRO10";
         };
+
+        switch_apps: switch_apps {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CAPS &kp TILDE>;
+            label = "SWITCH_APPS";
+        };
     };
 
     keymap {
@@ -387,12 +399,21 @@
             display-name = " QWE";
             bindings = <
 &kp ESCAPE           &kp Q  &kp W  &kp E                   &kp R        &kp T                  &kp Y                  &kp U                 &kp I             &kp O             &kp P     &kp BACKSPACE
-&mt LCTRL TAB        &kp A  &kp S  &kp D                   &lt 2 F      &kp G                  &kp H                  &hml RIGHT_CONTROL J  &hml RIGHT_GUI K  &hml RIGHT_ALT L  &kp SEMI  &kp SQT
+&mt LCTRL TAB        &kp A  &kp S  &kp D                   &lt 3 F      &kp G                  &kp H                  &hml RIGHT_CONTROL J  &hml RIGHT_GUI K  &hml RIGHT_ALT L  &kp SEMI  &kp SQT
 &mt LEFT_SHIFT CAPS  &kp Z  &kp X  &kp C                   &kp V        &kp B                  &kp N                  &kp M                 &kp COMMA         &kp DOT           &kp FSLH  &kp RIGHT_SHIFT
-                                   &mt LEFT_ALT BACKSPACE  &lt 2 ENTER  &lt 1 SPACE            &mt RIGHT_SHIFT SPACE  &lt 3 ENTER           &lt 1 BACKSPACE
+                                   &mt LEFT_ALT BACKSPACE  &lt 3 ENTER  &lt 2 SPACE            &mt RIGHT_SHIFT SPACE  &lt 4 ENTER           &lt 2 BACKSPACE
             >;
 
             sensor-bindings = <&scroll_encoder>;
+        };
+
+        Mac {
+            bindings = <
+&kp ESCAPE            &kp Q  &kp W  &kp E                   &kp R        &kp T                         &kp Y                  &kp U                &kp I            &kp O                &kp P     &kp BSPC
+&mt LEFT_COMMAND TAB  &kp A  &kp S  &kp D                   &lt 3 F      &mt LEFT_CONTROL G            &hml CAPSLOCK H        &hml LEFT_COMMAND J  &hml LEFT_ALT K  &hml LEFT_CONTROL L  &kp SEMI  &kp SQT
+&kp LSHFT             &kp Z  &kp X  &kp C                   &kp V        &mt CAPSLOCK B                &kp N                  &kp M                &kp COMMA        &kp DOT              &kp FSLH  &kp BSLH
+                                    &mt LEFT_ALT BACKSPACE  &lt 3 ENTER  &lt 2 SPACE                   &mt RIGHT_SHIFT SPACE  &lt 4 ENTER          &lt 2 BACKSPACE
+            >;
         };
 
         NAV {
@@ -413,7 +434,7 @@
 &kp COLON  &kp ASTERISK  &kp N7  &kp N8  &kp N9        &kp PLUS               &kp C_MUTE             &kp C_PREVIOUS         &kp C_PLAY_PAUSE  &kp C_NEXT            &trans  &trans
 &kp DOT    &kp SLASH     &kp N4  &kp N5  &kp N6        &kp MINUS              &trans                 &kp RA(C_VOLUME_DOWN)  &trans            &kp RA(C_VOLUME_UP)   &trans  &trans
 &trans     &kp NUMBER_0  &kp N1  &kp N2  &kp N3        &kp EQUAL              &trans                 &kp C_BRIGHTNESS_DEC   &trans            &kp C_BRIGHTNESS_INC  &trans  &trans
-                                 &mo 4   &lt 1 DELETE  &new_macro2            &mt RIGHT_SHIFT SPACE  &lt 1 BACKSPACE        &kp RIGHT_ALT
+                                 &mo 5   &lt 2 DELETE  &new_macro2            &mt RIGHT_SHIFT SPACE  &lt 2 BACKSPACE        &kp RIGHT_ALT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
@@ -433,22 +454,13 @@
 
         Macros {
             bindings = <
-&new_macro5  &new_macro1  &trans       &new_macro15  &new_macro   &ext_power EP_ON             &bt BT_SEL 0  &bt BT_SEL 1  &tog 5  &to 0   &bt BT_SEL 4  &trans
+&new_macro5  &new_macro1  &trans       &new_macro15  &new_macro   &ext_power EP_ON             &bt BT_SEL 0  &bt BT_SEL 1  &tog 1  &to 0   &bt BT_SEL 4  &trans
 &new_macro6  &new_macro9  &new_macro4  &new_macro3   &trans       &ext_power EP_OFF            &trans        &trans        &trans  &trans  &trans        &trans
 &new_macro7  &trans       &trans       &new_macro10  &new_macro8  &out OUT_TOG                 &out OUT_TOG  &out OUT_BLE  &trans  &trans  &trans        &bt BT_CLR_ALL
                                        &trans        &trans       &out OUT_BLE                 &trans        &trans        &trans
             >;
 
             label = "MACROS";
-        };
-
-        Mac {
-            bindings = <
-&mt ESCAPE TILDE      &kp Q  &kp W  &kp E                   &kp R        &kp T                         &kp Y                  &kp U                &kp I            &kp O                &kp P     &kp BSPC
-&mt LEFT_COMMAND TAB  &kp A  &kp S  &kp D                   &lt 2 F      &mt LEFT_CONTROL G            &hml CAPSLOCK H        &hml LEFT_COMMAND J  &hml LEFT_ALT K  &hml LEFT_CONTROL L  &kp SEMI  &kp SQT
-&kp LSHFT             &kp Z  &kp X  &kp C                   &kp V        &mt CAPSLOCK B                &kp N                  &kp M                &kp COMMA        &kp DOT              &kp FSLH  &kp BSLH
-                                    &mt LEFT_ALT BACKSPACE  &lt 2 ENTER  &lt 1 SPACE                   &mt RIGHT_SHIFT SPACE  &lt 3 ENTER          &lt 1 BACKSPACE
-            >;
         };
     };
 };
