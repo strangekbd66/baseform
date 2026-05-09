@@ -1,18 +1,19 @@
 ![Baseform Keyboard](https://posture.works/cdn-cgi/image/width=2048,height=1365,fit=crop,quality=80,format=auto,onerror=redirect,metadata=none/wp-content/uploads/2025/08/Cover-Creative-2.jpg)
 
 <!-- FIRMWARE-LINKS:START - Do not edit below, this section is managed by CI -->
-#### Firmware v2025.11.27a
+#### Firmware v2026.05.09
 - QWERTY
-  - [Duo](https://github.com/strangekbd66/baseform/releases/download/v2025.11.27a/qwerty_duo-v2025.11.27a.zip)
-  - [Trio](https://github.com/strangekbd66/baseform/releases/download/v2025.11.27a/qwerty_trio-v2025.11.27a.zip)
+  - [Duo](https://github.com/strangekbd66/baseform/releases/download/v2026.05.09/qwerty_duo-v2026.05.09.zip)
+  - [Trio](https://github.com/strangekbd66/baseform/releases/download/v2026.05.09/qwerty_trio-v2026.05.09.zip)
 - Colemak
-  - [Duo](https://github.com/strangekbd66/baseform/releases/download/v2025.11.27a/colemak_duo-v2025.11.27a.zip)
-  - [Trio](https://github.com/strangekbd66/baseform/releases/download/v2025.11.27a/colemak_trio-v2025.11.27a.zip)
+  - [Duo](https://github.com/strangekbd66/baseform/releases/download/v2026.05.09/colemak_duo-v2026.05.09.zip)
+  - [Trio](https://github.com/strangekbd66/baseform/releases/download/v2026.05.09/colemak_trio-v2026.05.09.zip)
 - Dvorak
-  - [Duo](https://github.com/strangekbd66/baseform/releases/download/v2025.11.27a/dvorak_duo-v2025.11.27a.zip)
-  - [Trio](https://github.com/strangekbd66/baseform/releases/download/v2025.11.27a/dvorak_trio-v2025.11.27a.zip)
+  - [Duo](https://github.com/strangekbd66/baseform/releases/download/v2026.05.09/dvorak_duo-v2026.05.09.zip)
+  - [Trio](https://github.com/strangekbd66/baseform/releases/download/v2026.05.09/dvorak_trio-v2026.05.09.zip)
 
 <!-- FIRMWARE-LINKS:END -->
+
 
 
 
