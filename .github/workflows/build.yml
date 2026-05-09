@@ -77,7 +77,7 @@ jobs:
 
   # 1) Build using ZMK's official workflow
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
     needs: [determine-tag]
 
   # 2) Package: collect outputs, rename with tag, zip per layout/split
