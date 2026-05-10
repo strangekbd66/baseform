@@ -289,6 +289,7 @@
         switchapps {
             bindings = <&switch_apps>;
             key-positions = <18 0>;
+            layers = <1>;
         };
 
         maccopy {
@@ -300,6 +301,12 @@
         macpaste {
             bindings = <&kp LG(V)>;
             key-positions = <27 28>;
+            layers = <1>;
+        };
+
+        macsc {
+            bindings = <&ipadscreenshot>;
+            key-positions = <16 1>;
             layers = <1>;
         };
     };
@@ -399,8 +406,16 @@
         switch_apps: switch_apps {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp CAPS &kp TILDE>;
+            bindings = <&kp CAPS>, <&macro_press>, <&kp TILDE>;
+
             label = "SWITCH_APPS";
+        };
+
+        ipadscreenshot: ipadscreenshot {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LG(LS(NUMBER_3))>;
+            label = "IPADSCREENSHOT";
         };
     };
 
