@@ -417,6 +417,20 @@
             bindings = <&kp LG(LS(NUMBER_3))>;
             label = "IPADSCREENSHOT";
         };
+
+        macswap: macswap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_BLE &to 1>;
+            label = "MACSWAP";
+        };
+
+        winswap: winswap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&out OUT_USB &to 0>;
+            label = "WINSWAP";
+        };
     };
 
     keymap {
