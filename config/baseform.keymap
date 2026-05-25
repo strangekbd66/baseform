@@ -455,6 +455,8 @@
 &kp LSHFT             &kp Z  &kp X  &kp C                   &kp V        &mt CAPSLOCK B                &kp N                  &kp M                &kp COMMA        &kp DOT              &kp FSLH  &kp BSLH
                                     &mt LEFT_ALT BACKSPACE  &lt 3 ENTER  &lt 2 SPACE                   &mt RIGHT_SHIFT SPACE  &lt 4 ENTER          &lt 2 BACKSPACE
             >;
+
+            label = "Mac";
         };
 
         NAV {
